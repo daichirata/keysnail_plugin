@@ -183,6 +183,18 @@ let PasswordManager = function () {
     };
 }();
 
+function fbug(x) {
+    var args = Array.slice(arguments);
+    var windowManager = Components.classes['@mozilla.org/appshell/window-mediator;1']
+                        .getService(Components.interfaces.nsIWindowMediator);
+    var {Firebug} = windowManager.getMostRecentWindow("navigator:browser");
+    if (Firebug.Console.isEnabled() && Firebug.toggleBar(true, 'console')) {
+        Firebug.Console.logFormatted(args);
+    }
+    return args.length > 1 ? args : args[0];
+}
+
+
 let Gnail = function () {
     function toLocalizeDate(issued) {
         var d = new Date(issued);
@@ -274,8 +286,9 @@ let Gnail = function () {
 
         checkNewMail: function () {
             if (PasswordManager.isLogin) {
-                let response = getNewFeed();
-                let count = response.getElementsByTagName('fullcount')[0].textContent;
+                let response = getNewFeed(pOptions['default']);
+                let entries = Array.slice(response.getElementsByTagName('entry'));
+                let count = entries.length;
                 StatusPanel.update(count);
             }
             setTimeout(Gnail.checkNewMail, pOptions['interval'] * 1000);
