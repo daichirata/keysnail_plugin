@@ -60,21 +60,21 @@ let pOptions = plugins.setupOptions("gnail", {
     "default": {
         preset: 'inbox',
         description: M({
-            ja: "メインでチェックするラベル、デフォルトは受信トレイ",
+            ja: "メインでチェックするラベル、デフォルト値:'inbox' (受信トレイ)",
             en: "hogehoge"
         })
     },
     "labels": {
         preset: ['inbox'],
         description: M({
-            ja: "更新を選択するラベルのリスト",
+            ja: "更新を選択するラベルのリスト、デフォルト値:['inbox'] (受信トレイ)",
             en: "hogehoge"
         })
     },
     "interval" : {
         preset: 60,
         description: M({
-            ja: "新着メールの更新期間(秒)",
+            ja: "新着メールの更新期間(秒)、デフォルト値:60",
             en: "hogehoge"
         })
     },
@@ -182,18 +182,6 @@ let PasswordManager = function () {
         }
     };
 }();
-
-function fbug(x) {
-    var args = Array.slice(arguments);
-    var windowManager = Components.classes['@mozilla.org/appshell/window-mediator;1']
-                        .getService(Components.interfaces.nsIWindowMediator);
-    var {Firebug} = windowManager.getMostRecentWindow("navigator:browser");
-    if (Firebug.Console.isEnabled() && Firebug.toggleBar(true, 'console')) {
-        Firebug.Console.logFormatted(args);
-    }
-    return args.length > 1 ? args : args[0];
-}
-
 
 let Gnail = function () {
     function toLocalizeDate(issued) {
