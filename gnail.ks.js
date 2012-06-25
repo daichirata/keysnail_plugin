@@ -6,7 +6,7 @@ const PLUGIN_INFO =
     <name>Gnail</name>
     <description>Check for Gmail</description>
     <description lang="ja">Gmail の新着チェック</description>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <updateURL>https://raw.github.com/daic-h/keysnail_plugin/master/gnail.ks.js</updateURL>
     <iconURL></iconURL>
     <author homepage="http://a-newcomer.com">Daic_h</author>
@@ -155,14 +155,21 @@ let PasswordManager = function () {
     var form = ['https://www.google.com', 'https://www.google.com', null];
     var PasswordManager = Cc["@mozilla.org/login-manager;1"].getService(Ci.nsILoginManager);
     var logins = PasswordManager.findLogins({}, form[0], form[1], form[2]);
+
+    var isLogin = function () {
+        return logins.length;
+    };
     
     return {
-        username: logins[0].username,
-        password: logins[0].password,
+        isLogin: isLogin,
 
-        isLogin: function () {
-            return logins.length;
-        },
+        username: function() {
+            return isLogin() ? logins[0].username : '';
+        }(),
+
+        password: function() {
+            return isLogin() ? logins[0].password : '';
+        }(),
 
         loginWithPrompt: function () {
             prompt.read("user_name: ", function (user_name) {
