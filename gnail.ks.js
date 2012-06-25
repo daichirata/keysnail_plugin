@@ -6,8 +6,8 @@ const PLUGIN_INFO =
     <name>Gnail</name>
     <description>Check for Gmail</description>
     <description lang="ja">Gmail の新着チェック</description>
-    <version>0.1.0</version>
-    <updateURL></updateURL>
+    <version>1.0.0</version>
+    <updateURL>https://raw.github.com/daic-h/keysnail_plugin/master/gnail.ks.js</updateURL>
     <iconURL></iconURL>
     <author homepage="http://a-newcomer.com">Daic_h</author>
     <license>MIT</license>
